@@ -1,2 +1,2 @@
-knowledgeroot_akismet
-=====================
+Akismet Module for Knowledgeroot2
+=================================
