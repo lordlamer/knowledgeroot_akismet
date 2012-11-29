@@ -11,8 +11,21 @@ class AkismetModule_Akismet_Plugin extends Zend_Controller_Plugin_Abstract {
 		$controller = $request->getControllerName();
 		$action = $request->getActionName();
 
-		if($module == '' && $controller == '' && $action == '') {
+		// content.edit and method post
+		if($module == '' && $controller == 'content' && $action == 'edit' && $this->getRequest()->getMethod() == 'POST') {
+		    // get module config
+		    $config = Knowledgeroot_Registry::get('akismet_config');
 
+		    // init akismet
+		    $akismet = new AkismetModule_Akismet($config);
+
+		    // check if content is spam
+		    if($akismet->isSpam($request->getParam('content'))) {
+			Knowledgeroot_Message::error('Spam detected', 'Your content was detected as spam!');
+
+			// redirect
+			$this->_response->setRedirect('.');
+		    }
 		}
 	}
 }

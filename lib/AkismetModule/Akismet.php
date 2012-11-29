@@ -20,21 +20,21 @@ class AkismetModule_Akismet {
 	/**
 	 * init akismet service
 	 */
-	public function __contruct($config) {
+	public function __construct($config) {
 		if(!($config instanceof Zend_Config_Ini))
-			throw AkismetModule_Akismet_Exception('Config is not instance of Zend_Config');
+			throw new AkismetModule_Akismet_Exception('Config is not instance of Zend_Config');
 
 		// save config
 		$this->config = $config->akismet;
 
-		if(!($config->apikey != '' && $config->url != ''))
-			throw AkismetModule_Akismet_Exception('Apikey or Url not set in config');
+		if(!($config->akismet->apikey != '' && $config->akismet->url != ''))
+			throw new AkismetModule_Akismet_Exception('Apikey or Url not set in config');
 
 		// init akismet service
-		$this->service = new Zend_Service_Akismet($config->apikey, $config->url);
+		$this->service = new Zend_Service_Akismet($config->akismet->apikey, $config->akismet->url);
 
 		if(!($this->service != null))
-			throw AkismetModule_Akismet_Exception('Could not initialize akismet service');
+			throw new AkismetModule_Akismet_Exception('Could not initialize akismet service');
 	}
 
 	/**
@@ -52,7 +52,7 @@ class AkismetModule_Akismet {
 		if($userAgent == null)
 			$userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-		$this->service->isSpam(array(
+		return $this->service->isSpam(array(
 			'user_ip' => $ip,
 			'user_agent' => $userAgent,
 			'comment_content' => $content
