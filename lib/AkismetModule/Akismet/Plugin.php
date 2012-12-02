@@ -12,7 +12,7 @@ class AkismetModule_Akismet_Plugin extends Zend_Controller_Plugin_Abstract {
 		$action = $request->getActionName();
 
 		// content.edit and method post
-		if($module == '' && $controller == 'content' && $action == 'edit' && $this->getRequest()->getMethod() == 'POST') {
+		if($module == '' && $controller == 'content' && ($action == 'edit' || $action == 'new') && $this->getRequest()->getMethod() == 'POST') {
 		    // get module config
 		    $config = Knowledgeroot_Registry::get('akismet_config');
 
@@ -24,7 +24,11 @@ class AkismetModule_Akismet_Plugin extends Zend_Controller_Plugin_Abstract {
 			Knowledgeroot_Message::error('Spam detected', 'Your content was detected as spam!');
 
 			// redirect
-			$this->_response->setRedirect('.');
+			if($action == 'edit') {
+			    $this->_response->setRedirect('./'.$request->getParam('id'));
+			} else {
+			    $this->_response->setRedirect('.');
+			}
 		    }
 		}
 	}
