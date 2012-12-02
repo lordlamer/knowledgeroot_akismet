@@ -3,11 +3,7 @@
 /**
  * module bootstrap
  */
-class AkismetBootstrap {
-	public function __construct() {
-	    $this->_initPlugin();
-	}
-
+class AkismetBootstrap extends Knowledgeroot_Module_Bootstrap_Abstract {
 	/**
 	 * init plugin for akismet
 	 */
