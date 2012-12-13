@@ -12,6 +12,6 @@ class AkismetBootstrap extends Knowledgeroot_Module_Bootstrap_Abstract {
 		$controller = Zend_Controller_Front::getInstance();
 
 		// register akismet plugin
-		$controller->registerPlugin(new AkismetModule_Akismet_Plugin());
+		$controller->registerPlugin(new Akismet_Plugin());
 	}
 }

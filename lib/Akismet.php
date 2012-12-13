@@ -2,7 +2,7 @@
 /**
  * akismet service class
  */
-class AkismetModule_Akismet {
+class Akismet {
 	/**
 	 * akismet service object
 	 *
@@ -22,19 +22,19 @@ class AkismetModule_Akismet {
 	 */
 	public function __construct($config) {
 		if(!($config instanceof Zend_Config_Ini))
-			throw new AkismetModule_Akismet_Exception('Config is not instance of Zend_Config');
+			throw new Akismet_Exception('Config is not instance of Zend_Config');
 
 		// save config
 		$this->config = $config->akismet;
 
 		if(!($config->akismet->apikey != '' && $config->akismet->url != ''))
-			throw new AkismetModule_Akismet_Exception('Apikey or Url not set in config');
+			throw new Akismet_Exception('Apikey or Url not set in config');
 
 		// init akismet service
 		$this->service = new Zend_Service_Akismet($config->akismet->apikey, $config->akismet->url);
 
 		if(!($this->service != null))
-			throw new AkismetModule_Akismet_Exception('Could not initialize akismet service');
+			throw new Akismet_Exception('Could not initialize akismet service');
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  *
  */
-class AkismetModule_Akismet_Plugin extends Zend_Controller_Plugin_Abstract {
+class Akismet_Plugin extends Zend_Controller_Plugin_Abstract {
 	/**
 	 *
 	 */
@@ -17,7 +17,7 @@ class AkismetModule_Akismet_Plugin extends Zend_Controller_Plugin_Abstract {
 		    $config = Knowledgeroot_Registry::get('akismet_config');
 
 		    // init akismet
-		    $akismet = new AkismetModule_Akismet($config);
+		    $akismet = new Akismet($config);
 
 		    // check if content is spam
 		    if($akismet->isSpam($request->getParam('content'))) {
